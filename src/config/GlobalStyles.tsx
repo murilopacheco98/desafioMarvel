@@ -1,18 +1,12 @@
 import React from 'react';
-import GlobalStyles from '@mui/material/GlobalStyles';
+import { createGlobalStyle } from 'styled-components';
 
-const StylesGlobal: React.FC = () => {
-  return (
-    <GlobalStyles
-      styles={{
-        a: { textDecoration: 'none', color: 'inherit' },
-        '& 	.MuiCardActionArea-root': {
-          backgroundColor: '#202020',
-          color: '#ffff',
-        },
-      }}
-    />
-  );
-};
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+`
 
-export default StylesGlobal;
+export default GlobalStyle;

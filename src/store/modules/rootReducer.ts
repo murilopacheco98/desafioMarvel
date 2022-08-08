@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import characters from './characters/charactersSlice';
-import comics from './comics/comicSlice'
+import comics from './comics/comicsSlice'
 
 export const rootReducer = combineReducers({
   characters,

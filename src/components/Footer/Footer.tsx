@@ -35,10 +35,10 @@ export const Footer = () => {
               <Name>Murilo Pacheco</Name>
               <Links>
                 <a href='https://www.linkedin.com/in/murilo-pacheco-037ba316b/' target="_blank" rel="noreferrer">
-                  <AiFillLinkedin /> Linkedin
+                  <AiFillLinkedin />
                 </a>
                 <a href='https://github.com/murilopacheco98' target="_blank" rel="noreferrer">
-                  <AiFillGithub /> Github
+                  <AiFillGithub />
                 </a>
               </Links>
             </Person>

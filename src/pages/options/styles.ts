@@ -3,7 +3,6 @@ import Asgard from "../../assets/img/Asgard.webp";
 
 export const Container = styled.div`
   // font-family: Bangers, sans-serif;
-  margin: -8px;
   background-image: url(${Asgard});
   background-size: cover;
   flex-direction: column;

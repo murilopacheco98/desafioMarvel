@@ -3,7 +3,6 @@ import styled, { keyframes } from "styled-components";
 import StarkTower from "../../../assets/img/StarkTower.png"
 
 export const Container = styled.div`
-  margin: -8px;
   background-image: url(${StarkTower});
   background-size: cover;
   background-repeat: no-repeat;
@@ -27,7 +26,7 @@ export const Title = styled.h1`
   font-size: 4rem;
   text-align: center;
   span {
-    margin-top: 10px;
+    margin-top: 10 px;
     font-size: 2.5rem;
     font-weight: 900;
     background-color: #ec1d24;

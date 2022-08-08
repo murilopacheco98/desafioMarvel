@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: -8px;
-  margin-bottom: 8px;
   font-family: Poppins, sans-serif;
   background-color: #060d15;
-  width: 100vw;
+  /* width: 98.9vw; */
   height: 7vh;
   display: flex;
   align-items: center;
@@ -26,13 +24,13 @@ export const Links = styled.ul`
   list-style: none;
   display: flex;
   font-weight: 400;
-  margin-right: 2rem;
+  margin-right: 5rem;
   justify-content: center;
   align-items: center;
   a {
     text-decoration: none;
     color: #ec1d24;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
   }
   li {
     color: #ec1d24;
