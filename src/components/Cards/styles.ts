@@ -20,7 +20,7 @@ export const CardContainer = styled.div<CardContainerProps>`
   background-color: ${(props) => (props.color ? props.color : "")};
   border: 1px solid rgba(255, 255, 255, 0.5);
   flex-direction: column;
-  //-webkit-box-shadow: inset 1px -50px 40px 5px #000000;
+  -webkit-box-shadow: inset 1px -50px 40px 5px #000000;
   box-shadow: inset 1px -50px 40px 5px #000000;
   background-image: url(${(props) => (props.image ? props.image : "")});
   background-size: cover;
@@ -29,7 +29,7 @@ export const CardContainer = styled.div<CardContainerProps>`
 `;
 
 export const Text = styled.h1<TextProps>`
-  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
   position: relative;
   border-radius: 10px;

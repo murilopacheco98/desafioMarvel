@@ -8,9 +8,7 @@ export const Options = () => {
 
   return (
     <Container>
-      {/* <Fade top> */}
         <TitlePage>Escolha o seu destino</TitlePage>
-      {/* </Fade> */}
       <CardsSpace>
         <Cards />
       </CardsSpace>

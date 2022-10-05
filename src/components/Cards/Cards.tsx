@@ -10,8 +10,7 @@ export const Cards = () => {
   return (
     <>
       {CardsOptions.map((card) => (
-        <Fade top>
-          {/* <Tilt > */}
+        <Fade top key={card.link}>
             <Link to={card.link} style={{ textDecoration: "none" }}>
               <CardContainer
                 image={card.image}
@@ -21,7 +20,6 @@ export const Cards = () => {
                 <Text color={card.color}>{card.title}</Text>
               </CardContainer>
             </Link>
-          {/* </Tilt> */}
         </Fade>
       ))}
     </>

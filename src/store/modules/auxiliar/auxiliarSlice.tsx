@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  PayloadAction,
+  // PayloadAction,
 } from '@reduxjs/toolkit';
 import { marvel } from '../../../services';
 
@@ -27,7 +27,7 @@ const adapter = createEntityAdapter<Character>({
   selectId: (character) => character.id,
 });
 
-export const { selectAll, selectById, selectIds } = adapter.getSelectors(
+export const { selectAll, selectById } = adapter.getSelectors(
   (state: any) => state.characters
 );
 
@@ -36,7 +36,7 @@ type asyncProps = {
   offset: number;
 };
 
-export const getAll = createAsyncThunk(
+export const getAllAuxiliar = createAsyncThunk(
   'getAllCharacters',
   async (props: asyncProps) => {
     const response = await marvel.get(
@@ -53,7 +53,7 @@ type asyncProps2 = {
   offset: number;
 };
 
-export const getByName = createAsyncThunk(
+export const getByNameAuxiliar = createAsyncThunk(
   'getCharactersByName',
   async (props: asyncProps2) => {
     const response = await marvel.get(
@@ -64,23 +64,23 @@ export const getByName = createAsyncThunk(
   }
 );
 
-type asyncProps3 = {
-  id: string;
-};
+// type asyncProps3 = {
+//   id: string;
+// };
+// 
+// export const getByIdAuxiliar = createAsyncThunk(
+//   'getCharactersById',
+//   async (props: asyncProps3) => {
+//     const response = await marvel.get(
+//       `/characters/${props.id}?`
+//     );
+//     const response2 = JSON.parse(response.data);
+//     return response2.data.results;
+//   }
+// );
 
-export const getById = createAsyncThunk(
-  'getCharactersById',
-  async (props: asyncProps3) => {
-    const response = await marvel.get(
-      `/characters/${props.id}?`
-    );
-    const response2 = JSON.parse(response.data);
-    return response2.data.results;
-  }
-);
-
-const charactersSlice = createSlice({
-  name: 'characters',
+const auxiliarSlice = createSlice({
+  name: 'auxiliar',
   initialState: adapter.getInitialState({ loading: false }),
   reducers: {
     addOne: adapter.addOne,
@@ -92,27 +92,27 @@ const charactersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAll.pending, (state) => {
+      .addCase(getAllAuxiliar.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getAll.fulfilled, (state, action) => {
+      .addCase(getAllAuxiliar.fulfilled, (state, action) => {
         adapter.setAll(state, action.payload);
         // state.entities.push(action.payload);
         state.loading = false;
       })
-      .addCase(getAll.rejected, (state) => {
+      .addCase(getAllAuxiliar.rejected, (state) => {
         state.loading = false;
         console.log('DEU ERRO');
       })
-      .addCase(getByName.pending, (state) => {
+      .addCase(getByNameAuxiliar.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getByName.fulfilled, (state, action) => {
+      .addCase(getByNameAuxiliar.fulfilled, (state, action) => {
         adapter.setAll(state, action.payload);
         // state.entities.push(action.payload);
         state.loading = false;
       })
-      .addCase(getByName.rejected, (state) => {
+      .addCase(getByNameAuxiliar.rejected, (state) => {
         state.loading = false;
         console.log('DEU ERRO');
       });
@@ -120,5 +120,5 @@ const charactersSlice = createSlice({
 });
 
 export const { addOne, addMany, updateOne, setAll, upsertOne, removeAll } =
-  charactersSlice.actions;
-export default charactersSlice.reducer;
+  auxiliarSlice.actions;
+export default auxiliarSlice.reducer;

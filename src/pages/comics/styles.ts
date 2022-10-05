@@ -7,7 +7,7 @@ type CharacterContainerProps = {
 export const Container = styled.div`
   font-family: Bangers, sans-serif;
   /* width: 100vw; */
-  height: 80vh;
+  height: 86.8vh;
   overflow: hidden;
   display: flex;
   justify-content: center;

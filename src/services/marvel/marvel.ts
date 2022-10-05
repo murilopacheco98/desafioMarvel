@@ -20,7 +20,7 @@ class Marvel {
       baseURL: 'https://gateway.marvel.com/v1/public',
     })
 
-    this.authentication = `?ts=${this.ts}&apikey=${publicKey}&hash=${this.hash}`
+    this.authentication = `ts=${this.ts}&apikey=${publicKey}&hash=${this.hash}`
     console.log(this.authentication)
   }
 

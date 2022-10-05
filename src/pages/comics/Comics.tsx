@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../store/modules/types-hooks'
 import { CharacterContainer, Container, InfosContainer, Text } from "./styles";
 
 import { Loading } from '../../components/Loading/Loading'
-import { Button } from "../../components/ButtonMore/styles";
 
 const Fade = require('react-reveal/Fade')
 
@@ -58,7 +57,7 @@ export const Comics = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar search/> */}
       <Container>
         {loading ? (
           <Loading type="spinningBubbles" color="black" />
@@ -92,23 +91,6 @@ export const Comics = () => {
               {/* </Tilt> */}
             </Fade>
           ))
-        )}
-        {loading ? (
-          ""
-        ) : (
-          // onClick={moreOptions}
-          <Button >
-            {loadingButton ? (
-              <Loading
-                type="spinningBubbles"
-                color="white"
-                width={30}
-                height={30}
-              />
-            ) : (
-              "Ver Mais"
-            )}
-          </Button>
         )}
       </Container>
       <Footer />
