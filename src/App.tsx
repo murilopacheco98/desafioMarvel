@@ -8,12 +8,15 @@ import { store, persistor } from './store/index';
 
 const App: React.FC = () => {
   return (
+    // <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <GlobalStyle />
+        {/* <h1 className="text-3xl bg-black font-bold underline">Hello world!</h1> */}
         <AppRoutes />
-      </PersistGate> 
+      </PersistGate>
     </Provider>
+    // </>
   );
 };
 

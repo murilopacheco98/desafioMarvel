@@ -1,20 +1,21 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
 import { Button } from '@mui/material';
 import { Container, Links, Logo, ContainerSearch, SearchBar } from './styles';
 import Marvel from '../../assets/img/Marvel.png';
 
-// import { Fade } from "react-reveal";
 type NavBarProps = {
   search: boolean;
   inputValue?: string;
   setInputValue?: React.Dispatch<React.SetStateAction<string>>;
   handleFunction?: any;
+  setSearch?: any;
 };
 
 export const Navbar = (props: NavBarProps) => {
   const navigate = useNavigate();
-  const { search, setInputValue, handleFunction, inputValue} = props;
+  const { setSearch, setInputValue, handleFunction, inputValue} = props;
   const backToHome = () => {
     navigate('/');
   };
@@ -29,9 +30,15 @@ export const Navbar = (props: NavBarProps) => {
               placeholder="Digite o nome do personagem"
               onChange={(event) => setInputValue(event.target.value)}
               value={inputValue}
+              onKeyDown={(e) =>{if (e.key === 'Enter') {
+                    navigate(`/characters/search=${inputValue}/page=1`)
+                    setSearch(inputValue)
+                  }
+                }
+              }
             />
             <Link to={`/characters/search=${inputValue}/page=1`}>
-              <Button className='border-blue-600 border-4' onClick={handleFunction}>Search</Button>
+              <Button onClick={handleFunction}><SearchIcon sx={{ fontSize: 45 }}/></Button>
             </Link>
           </ContainerSearch>
           <Links>

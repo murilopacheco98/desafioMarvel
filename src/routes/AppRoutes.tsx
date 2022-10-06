@@ -44,6 +44,8 @@ const AppRoutes: React.FC = () => {
           <Route path="/comics" element={<Comics />} />
           <Route path="/events" element={<Characters />} />
           <Route path="/series" element={<Characters />} />
+          {/* <Route path="/*" element={<NotFound />} /> */}
+
         </Routes>
       
     </BrowserRouter>

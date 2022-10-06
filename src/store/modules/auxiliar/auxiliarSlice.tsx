@@ -37,7 +37,7 @@ type asyncProps = {
 };
 
 export const getAllAuxiliar = createAsyncThunk(
-  'getAllCharacters',
+  'getAllCharactersAuxiliar',
   async (props: asyncProps) => {
     const response = await marvel.get(
       `/characters?limit=${props.limite}&offset=${props.offset}&`

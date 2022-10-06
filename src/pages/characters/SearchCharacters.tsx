@@ -6,8 +6,6 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import {
   selectAll,
   getByName,
-  Character,
-  getAll,
 } from '../../store/modules/characters/charactersSlice';
 import {
   ContainerCharacter,
@@ -19,22 +17,25 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../store/modules/types-hooks';
-import { Loading } from '../../components/Loading/Loading';
-
-// const Fade = require('react-reveal/Fade');
+// import { Loading } from '../../components/Loading/Loading';
 
 export const CharactersSearch = () => {
   const url = window.location.href.split('/');
-  const urlSearch = url[4].split('='); 
-  const [inputValue, setInputValue] = useState<string>(urlSearch ? urlSearch[1] : '');
-  const [ page ] = useSearchParams();
-  const query = Number(page.get("page"))
-  const [currentPage, setCurrentPage] = useState<number>(query);
-  console.log(query)
-  const [loading, setLoading] = useState<boolean>(true);
-  const [search, setSearch] = useState<string>('');
+  const urlSearch = url[4].split('=');
+  const [inputValue, setInputValue] = useState<string>(
+    urlSearch ? urlSearch[1] : ''
+  );
+  // const [ inputValue ] = useSearchParams();
+  // const query = inputValue.get("search")
+  // const [inputValue2, setInputValue2] = useState<string>(
+  //   `${query}` 
+  // );
+  
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [loading, setLoading] = useState<boolean>(true);
+  const [currentSearch, setCurrentSearch] = useState<string>('');
 
-  const dispatch = useAppDispatch();
+  const dispatch =  useAppDispatch();
 
   const personagensSelecionados = currentPage * 10;
   const limite = 100;
@@ -42,28 +43,40 @@ export const CharactersSearch = () => {
   const offset = currentPage * 10 - 10;
 
   const handleFunction = (event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value)
+    setCurrentPage(value);
   };
 
   useEffect(() => {
-    setSearch(urlSearch[1]);
-    if (search !== '') {
-      dispatch(getByName({ nameStartsWith: search, limite, offset }));
+    console.log(3)
+    setCurrentSearch(urlSearch[1]);
+    // setCurrentSearch(search || '');
+    // setCurrentSearch(`${query}`);
+    // if (currentPage >= 1) {
+      // setCurrentPage(Number(page));
+      // const urlSearchPage = url[5].split('=');
+      // setCurrentPage(Number(urlSearchPage[1]));
+    // }
+    if (currentSearch !== '') {
+      dispatch(getByName({ nameStartsWith: currentSearch, limite, offset }));
     }
-    setLoading(false);
-  }, [search]);
-  
-  let charactersRedux = useAppSelector(selectAll);
-  const length = Math.ceil(charactersRedux.length / 10)
+    // setLoading(false);
+  }, [currentSearch]);
 
+  let charactersRedux = useAppSelector(selectAll);
+  const length = Math.ceil(charactersRedux.length / 10);
+  // const { page } = useParams();
+  
   useEffect(() => {
+    console.log(4)
     if (currentPage > 1) {
+      // setCurrentPage(Number(page));
       const urlSearchPage = url[5].split('=');
       setCurrentPage(Number(urlSearchPage[1]));
     }
+    // setLoading(false);
   }, [currentPage]);
 
-  charactersRedux = charactersRedux.slice(offset, personagensSelecionados)
+  charactersRedux = charactersRedux.slice(offset, personagensSelecionados);
 
   return (
     <>
@@ -72,47 +85,41 @@ export const CharactersSearch = () => {
         setInputValue={setInputValue}
         handleFunction={handleFunction}
         inputValue={inputValue}
+        setSearch={setCurrentSearch}
       />
       <Container>
         {charactersRedux.length === 0 ? (
           // <Loading type="spinningBubbles" color="black" />
           <h1>Este personagem não foi encontrado.</h1>
         ) : (
-          charactersRedux.map((character: any, index: number): any => (
+          charactersRedux.map((character: any): any => (
             <div key={character.id}>
-              <ContainerCharacter
-                image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-              >
-                <Text>{character.name}</Text>
-              </ContainerCharacter>
+              <Link to={`/characters/id=${character?.id}`}>
+                <ContainerCharacter
+                  image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                >
+                  <Text>{character.name}</Text>
+                </ContainerCharacter>
+              </Link>
             </div>
           ))
         )}
       </Container>
       {/* eslint-disable react/jsx-props-no-spreading */}
       <PaginationContainer>
-          <Pagination
-            onChange={handleFunction}
-            page={currentPage}
-            count={length}
-            variant="outlined"
-            renderItem={(item) => (
-              // <PaginationItem
-              //   component={Link}
-              //   to={`/characters/search=${search}${
-              //     item.page === 1 ? '' : `/page=${item.page}`
-              //   }`}
-              //   {...item}
-              // />
-              <PaginationItem
-                component={Link}
-                to={`/characters/search=${search}${
-                  `/page=${item.page}`
-                }`}
-                {...item}
-              />
-            )}
-          />
+        <Pagination
+          onChange={handleFunction}
+          page={currentPage}
+          count={length}
+          variant="outlined"
+          renderItem={(item) => (
+            <PaginationItem
+              component={Link}
+              to={`/characters/search=${currentSearch}${`/page=${item.page}`}`}
+              {...item}
+            />
+          )}
+        />
       </PaginationContainer>
       <Footer />
     </>
