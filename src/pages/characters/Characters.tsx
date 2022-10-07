@@ -57,16 +57,13 @@ export const Characters = () => {
     if( inputValue !== '' ) {
       offset = 0;
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));
-      // dispatch(getAllAuxiliar({ limite, offset }));
     } else {
       setCurrentPage(Number(urlSearchPage[1]));
       dispatch(getAll({ limite, offset }));
-      // dispatch(getAllAuxiliar({ limite, offset }));
     }
     setLoading(false);
   }, [inputValue]);
   
-  // const charactersReduxAuxiliar = useAppSelector((store) => store.auxiliar);
   let charactersRedux = Object.values(useAppSelector((store) => store.characters.entities));
   charactersRedux = charactersRedux.sort((a: any , b: any) => a.name.localeCompare(b.name))
   // const charactersRedux = useAppSelector(selectAll);
