@@ -42,8 +42,7 @@
 📱 Telas responsivas:
 - imagem 10 vai aqui
 
-
-✨ Tecnologias
+✨ TECNOLOGIAS
 
    Esse projeto foi desenvolvido com as seguintes tecnologias:
 
@@ -53,6 +52,6 @@
 - CSS
 - HTML
 
-💻 Projeto
+💻 PROJETO
 
    Esse projeto consiste em uma aplicação para mostrar os personagens, criadores, séries, quadrinhos e etc da Marvel, informações e curiosidades importantes sobre cada um, cada uma dessas áreas tem a sua prória rota e cada personagem tem as suas informações. 
