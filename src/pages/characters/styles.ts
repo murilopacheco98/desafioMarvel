@@ -5,10 +5,20 @@ type CharacterContainerProps = {
   image: string;
 };
 
+export const ContainerKey = styled.div`
+  margin: 0;
+  padding: 0;
+`;
+
+export const ContainerGeral = styled.div`
+  width: 100vw;
+  height: auto;
+`;
+
 export const Container = styled.div`
   font-family: Bangers, sans-serif;
   /* width: 98.9vw; */
-  height: 80.6vh;
+  height: 78.7vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -30,8 +40,7 @@ export const Container = styled.div`
 
 export const ContainerCharacters = styled.div`
   font-family: Bangers, sans-serif;
-  /* width: 98.9vw; */
-  min-height: 84.9vh;
+  width: 98.9vw;
   background-color: rgba(90, 180, 7, 1);
   ::-webkit-scrollbar {
     width: 10px;
@@ -45,37 +54,36 @@ export const ContainerCharacters = styled.div`
 
 export const ContainerCharacter = styled.div<CharacterContainerProps>`
   border-radius: 20px;
-  border: 1px solid black;
-  margin: 1rem;
+  border: 0.1px solid black;
+  margin: 0.7rem;
   background-image: url(${(props) => (props.image ? props.image : "")});
   -webkit-box-shadow: inset 1px -50px 40px 5px #000000;
-  box-shadow: inset 1px -15px 40px 15px #000000;
+  box-shadow: inset 1px -15px 40px 6px #000000;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  width: 19rem;
-  height: 18.5rem;
+  width: 15rem;
+  height: 17rem;
   /* flex-direction: column; */
-  display: flex;
-  /* align-items: center; */
-  text-align: center;
-  justify-content: center;
+  /* display: ; */
+  align-content: center; 
+  justify-content: center; 
 `;
 
 export const Text = styled.h1`
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-width: 0.35px;
   -webkit-text-stroke-color: white;
   position: relative;
   border-radius: 10px;
-  padding: 0.5rem;
+  padding: 0.2rem;
   top: 0;
   width: 80%;
-  height: 9%;
+  margin-left: 8%;
   font-size: 1.4rem;
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
-  /* white-space: nowrap; */
-  background-color: rgba(90, 180, 7, 0.5);
+  background-color: rgba(20, 220, 7, 0.5);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 `;
 
 export const InfosContainer = styled.div`

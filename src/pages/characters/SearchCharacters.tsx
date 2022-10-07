@@ -40,7 +40,7 @@ export const CharactersSearch = () => {
   const personagensSelecionados = currentPage * 10;
   const limite = 100;
 
-  const offset = currentPage * 10 - 10;
+  let offset = currentPage * 10 - 10;
 
   const handleFunction = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -49,13 +49,9 @@ export const CharactersSearch = () => {
   useEffect(() => {
     console.log(3)
     setCurrentSearch(urlSearch[1]);
-    // setCurrentSearch(search || '');
-    // setCurrentSearch(`${query}`);
-    // if (currentPage >= 1) {
-      // setCurrentPage(Number(page));
-      // const urlSearchPage = url[5].split('=');
-      // setCurrentPage(Number(urlSearchPage[1]));
-    // }
+    const urlSearchPage = url[5].split('=');
+    setCurrentPage(Number(urlSearchPage[1]));
+    offset = 0
     if (currentSearch !== '') {
       dispatch(getByName({ nameStartsWith: currentSearch, limite, offset }));
     }

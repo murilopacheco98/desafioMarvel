@@ -14,14 +14,12 @@ import {
   selectAll,
 } from '../../store/modules/characters/charactersSlice';
 import {
-  getAllAuxiliar,
-  getByNameAuxiliar,
-} from '../../store/modules/auxiliar/auxiliarSlice';
-import {
   ContainerCharacter,
   Container,
   PaginationContainer,
   Text,
+  ContainerKey,
+  ContainerGeral,
 } from './styles';
 import {
   useAppDispatch,
@@ -43,10 +41,14 @@ export const Characters = () => {
   const limiteByName = 100;
   const offset = currentPage * 10 - 10;
   const page = inputValue ? 1 : 157;
-
+  const url = window.location.href.split('/');
+  const urlSearchPage = url[4].split('=');
+  
   useEffect(() => {
-    console.log("1")
-    dispatch(getAll({ limite, offset }));
+    console.log("1")  
+    if (currentPage > 1){
+      dispatch(getAll({ limite, offset }));
+    }
     setLoading(false);
   }, [currentPage]);
 
@@ -56,6 +58,7 @@ export const Characters = () => {
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));
       // dispatch(getAllAuxiliar({ limite, offset }));
     } else {
+      setCurrentPage(Number(urlSearchPage[1]));
       dispatch(getAll({ limite, offset }));
       // dispatch(getAllAuxiliar({ limite, offset }));
     }
@@ -68,30 +71,13 @@ export const Characters = () => {
   // const charactersRedux = useAppSelector(selectAll);
 
   return (
-    <>
+    <ContainerGeral>
       <Navbar
         search
         setInputValue={setInputValue}
         inputValue={inputValue}
       />
       <Container>
-        {/* {loading && 
-            <Loading type="spinningBubbles" color="black" />
-            || !charactersRedux &&
-            <h1> Este personagem não foi encontrado. </h1>
-            ||
-              charactersRedux.map((character: Character ): any => (
-                <div key={character.id}>
-                  <Link to={`/characters/id=${character.id}`}>
-                    <ContainerCharacter
-                      image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                    >
-                      <Text>{character.name}</Text>
-                    </ContainerCharacter>
-                  </Link>
-                </div>
-                ))
-              } */}
           { (() => { if (loading === true) {
             return(
               <Loading type="spinningBubbles" color="black" />
@@ -104,7 +90,7 @@ export const Characters = () => {
           } 
               return (
               charactersRedux.map((character: Character | undefined ): any => (
-                <div key={character?.id}>
+                <ContainerKey key={character?.id}>
                   <Link to={`/characters/id=${character?.id}`}>
                     <ContainerCharacter
                       image={`${character?.thumbnail.path}.${character?.thumbnail.extension}`}
@@ -112,30 +98,11 @@ export const Characters = () => {
                       <Text>{character?.name}</Text>
                     </ContainerCharacter>
                   </Link>
-                </div>
+                </ContainerKey>
                 )))
               }
              )()
             }
-        {/* { loading ?? (
-          <Loading type="spinningBubbles" color="black" />
-          )} 
-            {!charactersRedux ? (
-              <h1> Este personagem não foi encontrado. </h1>
-            ) : (
-              charactersRedux.map((character: Character | undefined ): any => (
-                <div key={character?.id}>
-                  <Link to={`/characters/id=${character?.id}`}>
-                    <ContainerCharacter
-                      image={`${character?.thumbnail.path}.${character?.thumbnail.extension}`}
-                    >
-                      <Text>{character?.name}</Text>
-                    </ContainerCharacter>
-                  </Link>
-                </div>
-                ))
-              // 
-            )} */}
       </Container>
       {/* eslint-disable react/jsx-props-no-spreading */}
       <PaginationContainer>
@@ -145,11 +112,6 @@ export const Characters = () => {
           count={page}
           variant="outlined"
           renderItem={(item) => (
-            // <PaginationItem
-            //   component={Link}
-            //   to={`/characters${item.page === 1 ? '' : `/page=${item.page}`}`}
-            //   {...item}
-            // />
             <PaginationItem
               component={Link}
               to={`/characters${`/page=${item.page}`}`}
@@ -159,6 +121,6 @@ export const Characters = () => {
         />
       </PaginationContainer>
       <Footer />
-    </>
+    </ContainerGeral>
   );
 };
