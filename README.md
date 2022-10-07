@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/66326378/164896001-b6c44ec6-8f76-4193-91c6-75e0d408a05b.png" width="300" height="125 title="hover text">
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1>
+  <p align="center">
+  Projeto Marvel com ReactTs e Redux
+  </p>
+</h1>
 
-## Available Scripts
+👀 Para entender melhor como foi feito este projeto, assista o vídeo(gravar um vídeo explicando algum dia): link
 
-In the project directory, you can run:
+👉 Site do projeto(colocar se achar um site grátis): link
 
-### `npm start`
+🖥️ Tela principal:
+- imagem 1 vai aqui
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+🖥️ Tela de Menu:
+- imagem 2 vai aqui
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+🖥️ Tela de Personagens:
+- imagem 3 vai aqui
 
-### `npm test`
+🖥️ Tela de Histórias:
+- imagem 4 vai aqui
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🖥️ Tela de Criadores:
+- imagem 5 vai aqui
 
-### `npm run build`
+🖥️ Tela de Quadrinhos:
+- imagem 6 vai aqui
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🖥️ Tela de Eventos:
+- imagem 7 vai aqui
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🖥️ Tela de Séries:
+- imagem 8 vai aqui
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+🖥️ Tela de Erro:
+- imagem 9 vai aqui
 
-### `npm run eject`
+📱 Telas responsivas:
+- imagem 10 vai aqui
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+✨ TECNOLOGIAS
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- React-TypeScript
+- Redux
+- Marvel API
+- CSS
+- HTML
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+💻 PROJETO
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+   Esse projeto consiste em uma aplicação para mostrar os personagens, criadores, séries, quadrinhos e etc da Marvel, informações e curiosidades importantes sobre cada um, cada uma dessas áreas tem a sua prória rota e cada personagem tem as suas informações. 
