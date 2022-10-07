@@ -1,6 +1,7 @@
 <p align="center">
 Projeto Marvel com reactTs e redux
 </p>
+
 🖥️ Tela principal:
 - imagem 1 vai aqui
 
