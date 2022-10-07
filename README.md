@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/66326378/164896001-b6c44ec6-8f76-4193-91c6-75e0d408a05b.png" width="300" height="125 title="hover text">
+</p>
+
 <h1>
   <p align="center">
   Projeto Marvel com ReactTs e Redux
