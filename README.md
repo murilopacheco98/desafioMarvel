@@ -4,7 +4,7 @@
   </p>
 </h1>
 
-👀 Para entender melhor como foi feito este projeto ele pode ser visto no vídeo(gravar um vídeo explicando algum dia): link
+👀 Para entender melhor como foi feito este projeto, assita o vídeo(gravar um vídeo explicando algum dia): link
 
 👉 Site do projeto(colocar se achar um site grátis): link
 
