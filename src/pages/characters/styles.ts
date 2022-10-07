@@ -127,6 +127,7 @@ export const ContainerCharacterId = styled.div<CharacterContainerProps>`
 export const ContainerTitle = styled.div`
   font-family: Bangers, sans-serif;
   height: 10vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +143,7 @@ export const ContainerImage = styled.div`
 `;
 
 export const ContainerData = styled.div`
-  height: auto;
+  height: 74.5vh;
   width: 100vw;
   display: flex;
   border-top: 2px solid rgba(0, 0, 0, 0.57);;

@@ -39,7 +39,7 @@ export const Characters = () => {
 
   const limite = 10;
   const limiteByName = 100;
-  const offset = currentPage * 10 - 10;
+  let offset = currentPage * 10 - 10;
   const page = inputValue ? 1 : 157;
   const url = window.location.href.split('/');
   const urlSearchPage = url[4].split('=');
@@ -55,6 +55,7 @@ export const Characters = () => {
   useEffect(() => {
     console.log("2")
     if( inputValue !== '' ) {
+      offset = 0;
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));
       // dispatch(getAllAuxiliar({ limite, offset }));
     } else {
