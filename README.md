@@ -1,6 +1,6 @@
 <h1>
   <p align="center">
-  Projeto Marvel com reactTs e redux
+  Projeto Marvel com ReactTs e Redux
   </p>
 </h1>
 
