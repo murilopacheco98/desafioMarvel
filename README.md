@@ -1,6 +1,12 @@
-<p align="center">
-Projeto Marvel com reactTs e redux
-</p>
+<h1>
+  <p align="center">
+  Projeto Marvel com reactTs e redux
+  </p>
+</h1>
+
+👀 Para entender melhor como foi feito este projeto ele pode ser visto no vídeo(gravar um vídeo explicando algum dia): link
+
+👉 Site do projeto(colocar se achar um site grátis): link
 
 🖥️ Tela principal:
 - imagem 1 vai aqui
