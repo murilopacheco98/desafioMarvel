@@ -42,8 +42,8 @@ export const Navbar = (props: NavBarProps) => {
             </Link>
           </ContainerSearch>
           <Links>
-            <Link to="/options">
-              <li>Menu</li>
+            <Link to="/options" className='w-11' style={{textDecoration:'none'}}>
+              <h3>Menu</h3>
             </Link>
           </Links>
         </Container>

@@ -29,7 +29,7 @@ import { Loading } from '../../components/Loading/Loading';
 
 export const Characters = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   const dispatch = useAppDispatch();
@@ -46,7 +46,7 @@ export const Characters = () => {
   
   useEffect(() => {
     console.log("1")  
-    if (currentPage > 1){
+    if (currentPage > 0){
       dispatch(getAll({ limite, offset }));
     }
     setLoading(false);
