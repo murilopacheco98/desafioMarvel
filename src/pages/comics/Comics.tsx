@@ -8,8 +8,6 @@ import { CharacterContainer, Container, InfosContainer, Text } from "./styles";
 
 import { Loading } from '../../components/Loading/Loading'
 
-const Fade = require('react-reveal/Fade')
-
 type Comic = {
   image: string;
   title: string;
@@ -23,12 +21,6 @@ export const Comics = () => {
   const [loading, setLoading] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   document.title = "Marvel: Quadrinhos";
-  //   getComics();
-  // }, []);
-
     const dispatch = useAppDispatch();
     useEffect(() => {
       dispatch(getAll());
@@ -36,24 +28,6 @@ export const Comics = () => {
   }, []);
 
   const comicsRedux = useAppSelector(selectAll);
-
-
-  // const moreOptions = useCallback(async () => {
-  //   try {
-  //     setLoadingButton(true);
-  //     const offset = comicsData.length;
-  //     const response = await axios.get(route2, {
-  //       params: {
-  //         offset,
-  //       },
-  //     });
-
-  //     setComicsData([...comicsData, ...response.data.data.results]);
-  //     setLoadingButton(false);
-  //   } catch (err) {
-  //     console.log("erro", err);
-  //   }
-  // }, [comicsData]);
 
   return (
     <>
@@ -63,8 +37,7 @@ export const Comics = () => {
           <Loading type="spinningBubbles" color="black" />
         ) : (
           comicsRedux.map((comic: any, index: number): any => (
-            <Fade left key={comic.id}>
-              {/* <Tilt options={{ max: 8, speed: 800, scale: 1.01 }}> */}
+            <div key={comic.id}>
                 <CharacterContainer
                   image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                 >
@@ -88,8 +61,7 @@ export const Comics = () => {
                     </p>
                   </InfosContainer>
                 </CharacterContainer>
-              {/* </Tilt> */}
-            </Fade>
+            </div>
           ))
         )}
       </Container>
