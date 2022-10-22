@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-// @ResponseStatus(HttpStatus.CREATED)
-// @ResponseStatus(HttpStatus.)
 
 export const Container = styled.div`
   font-family: Poppins, sans-serif;
