@@ -8,7 +8,7 @@
   </p>
 </h1>
 
-👉 Link do projeto: [marvelmundo.herokuapp.com](https://marvelmundo.herokuapp.com/)
+👉 Link do projeto: [marvelmundo.netlify.app](https://marvelmundo.netlify.app/)
 
 ✨ TECNOLOGIAS
 
