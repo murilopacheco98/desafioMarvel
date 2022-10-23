@@ -46,7 +46,6 @@ export const Characters = () => {
   useEffect(() => {
     // eslint-disable react-hooks/exhaustive-deps
     const offset = currentPage * 10 - 10;
-    const dispatch = useAppDispatch();
     if (currentPage > 0){
       dispatch(getAll({ limite, offset }));
     }
@@ -56,7 +55,6 @@ export const Characters = () => {
   useEffect(() => {
     // eslint-disable react-hooks/exhaustive-deps
     let offset = currentPage * 10 - 10;
-    const dispatch = useAppDispatch();
     if( inputValue !== '' ) {
       offset = 0;
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));

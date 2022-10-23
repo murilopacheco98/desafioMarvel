@@ -21,10 +21,9 @@ export const Comics = () => {
   const [loading, setLoading] = useState(true);
   // const [loadingButton, setLoadingButton] = useState(false);
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const dispatch = useAppDispatch();  
     dispatch(getAll());
     setLoading(false)
   }, []);
