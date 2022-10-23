@@ -67,7 +67,7 @@ export const CharactersSearch = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (currentPage > 1) {
       // setCurrentPage(Number(page));
-      const urlSearchPage = url[5].split('=');
+      // const urlSearchPage = url[5].split('=');
       setCurrentPage(Number(urlSearchPage[1]));
     }
     // setLoading(false);

@@ -31,7 +31,7 @@ export const Characters = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
@@ -44,8 +44,7 @@ export const Characters = () => {
   const urlSearchPage = url[4].split('=');
   
   useEffect(() => {
-    const dispatch = useAppDispatch();
-    let offset = currentPage * 10 - 10;
+    const offset = currentPage * 10 - 10;
     // console.log("1")  
     if (currentPage > 0){
       dispatch(getAll({ limite, offset }));
@@ -54,7 +53,7 @@ export const Characters = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    const dispatch = useAppDispatch();
+    
     let offset = currentPage * 10 - 10;
     // console.log("2")
     if( inputValue !== '' ) {
