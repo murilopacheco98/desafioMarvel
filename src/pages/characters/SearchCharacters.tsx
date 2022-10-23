@@ -45,11 +45,12 @@ export const CharactersSearch = () => {
   const handleFunction = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
+  const urlSearchPage = url[5].split('=');
 
   useEffect(() => {
-    // console.log(3)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setCurrentSearch(urlSearch[1]);
-    const urlSearchPage = url[5].split('=');
+    // const urlSearchPage = url[5].split('=');
     setCurrentPage(Number(urlSearchPage[1]));
     offset = 0
     if (currentSearch !== '') {
@@ -63,7 +64,7 @@ export const CharactersSearch = () => {
   // const { page } = useParams();
   
   useEffect(() => {
-    // console.log(4)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (currentPage > 1) {
       // setCurrentPage(Number(page));
       const urlSearchPage = url[5].split('=');

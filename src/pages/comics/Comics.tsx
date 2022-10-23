@@ -8,13 +8,13 @@ import { CharacterContainer, Container, InfosContainer, Text } from "./styles";
 
 import { Loading } from '../../components/Loading/Loading'
 
-type Comic = {
-  image: string;
-  title: string;
-  stories: { available: number };
-  variants: { length: number };
-  pageCOUNT: number;
-};
+// type Comic = {
+//   image: string;
+//   title: string;
+//   stories: { available: number };
+//   variants: { length: number };
+//   pageCOUNT: number;
+// };
 
 export const Comics = () => {
   // const [comicsData, setComicsData] = useState<Comic[]>([]);
@@ -36,7 +36,7 @@ export const Comics = () => {
         {loading ? (
           <Loading type="spinningBubbles" color="black" />
         ) : (
-          comicsRedux.map((comic: any, index: number): any => (
+          comicsRedux.map(( comic: any ): any => (
             <div key={comic.id}>
                 <CharacterContainer
                   image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}

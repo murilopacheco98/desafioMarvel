@@ -18,9 +18,10 @@ export const NameCharacters: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const url = window.location.href.split('/');
-  const urlSearch = url[4].split('=');
+  // const urlSearch = url[4].split('=');
 
   useEffect(() => {
+    const urlSearch = url[4].split('=');
     setId(urlSearch[1]);
     setLoading(false);
   }, []);
@@ -32,7 +33,7 @@ export const NameCharacters: React.FC = () => {
   let data: string[] = [];
   let data2: string[] = [];
   if (characterReduxId) {
-    const urls: string[] | undefined = characterReduxId?.urls;
+    // const urls: string[] | undefined = characterReduxId?.urls;
     data = characterReduxId?.modified.split('-');
     data2 = data[2].split('T');
   }
