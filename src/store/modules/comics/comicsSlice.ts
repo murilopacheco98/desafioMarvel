@@ -3,7 +3,6 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
 // import { type } from 'os';
 import { marvel } from '../../../services'
@@ -59,7 +58,6 @@ const comicsSlice = createSlice({
       })
       .addCase(getAll.rejected, (state) => {
         state.loading = false
-        console.log('DEU ERRO');
       })
       
   },

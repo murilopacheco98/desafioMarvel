@@ -3,7 +3,6 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
 import { marvel } from '../../../services';
 
@@ -102,7 +101,6 @@ const charactersSlice = createSlice({
       })
       .addCase(getAll.rejected, (state) => {
         state.loading = false;
-        console.log('DEU ERRO');
       })
       .addCase(getByName.pending, (state) => {
         state.loading = true;
@@ -114,7 +112,6 @@ const charactersSlice = createSlice({
       })
       .addCase(getByName.rejected, (state) => {
         state.loading = false;
-        console.log('DEU ERRO');
       });
   },
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination, PaginationItem } from '@mui/material';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
 import { Navbar } from '../../components/Navbar/Navbar';
 import {
@@ -47,7 +47,7 @@ export const CharactersSearch = () => {
   };
 
   useEffect(() => {
-    console.log(3)
+    // console.log(3)
     setCurrentSearch(urlSearch[1]);
     const urlSearchPage = url[5].split('=');
     setCurrentPage(Number(urlSearchPage[1]));
@@ -63,7 +63,7 @@ export const CharactersSearch = () => {
   // const { page } = useParams();
   
   useEffect(() => {
-    console.log(4)
+    // console.log(4)
     if (currentPage > 1) {
       // setCurrentPage(Number(page));
       const urlSearchPage = url[5].split('=');

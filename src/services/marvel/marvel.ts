@@ -13,7 +13,6 @@ class Marvel {
 
   constructor() {
     this.ts = new Date().getTime()
-    console.log(this.ts)
     this.hash = this.gerenateHash()
 
     this.client = new Axios({
@@ -21,12 +20,10 @@ class Marvel {
     })
 
     this.authentication = `ts=${this.ts}&apikey=${publicKey}&hash=${this.hash}`
-    console.log(this.authentication)
   }
 
   gerenateHash(): string {
     const hash = MD5(this.ts + privateKey + publicKey).toString()
-    console.log(hash)
     return hash
   }
 

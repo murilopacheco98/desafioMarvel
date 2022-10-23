@@ -11,7 +11,6 @@ import {
   getAll,
   getByName,
   Character,
-  selectAll,
 } from '../../store/modules/characters/charactersSlice';
 import {
   ContainerCharacter,
@@ -45,7 +44,7 @@ export const Characters = () => {
   const urlSearchPage = url[4].split('=');
   
   useEffect(() => {
-    console.log("1")  
+    // console.log("1")  
     if (currentPage > 0){
       dispatch(getAll({ limite, offset }));
     }
@@ -53,7 +52,7 @@ export const Characters = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    console.log("2")
+    // console.log("2")
     if( inputValue !== '' ) {
       offset = 0;
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));

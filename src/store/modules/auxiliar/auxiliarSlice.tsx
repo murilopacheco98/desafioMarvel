@@ -102,7 +102,6 @@ const auxiliarSlice = createSlice({
       })
       .addCase(getAllAuxiliar.rejected, (state) => {
         state.loading = false;
-        console.log('DEU ERRO');
       })
       .addCase(getByNameAuxiliar.pending, (state) => {
         state.loading = true;
@@ -114,7 +113,6 @@ const auxiliarSlice = createSlice({
       })
       .addCase(getByNameAuxiliar.rejected, (state) => {
         state.loading = false;
-        console.log('DEU ERRO');
       });
   },
 });

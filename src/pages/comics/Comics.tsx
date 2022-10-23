@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer/Footer";
-import { Navbar } from "../../components/Navbar/Navbar";
+// import { Navbar } from "../../components/Navbar/Navbar";
 import { getAll, selectAll } from '../../store/modules/comics/comicsSlice'
 import { useAppDispatch, useAppSelector } from '../../store/modules/types-hooks';
 
@@ -17,9 +17,9 @@ type Comic = {
 };
 
 export const Comics = () => {
-  const [comicsData, setComicsData] = useState<Comic[]>([]);
+  // const [comicsData, setComicsData] = useState<Comic[]>([]);
   const [loading, setLoading] = useState(true);
-  const [loadingButton, setLoadingButton] = useState(false);
+  // const [loadingButton, setLoadingButton] = useState(false);
 
     const dispatch = useAppDispatch();
     useEffect(() => {

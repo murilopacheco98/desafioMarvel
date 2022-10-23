@@ -1,5 +1,4 @@
 import React from 'react'
-import Tilt from "react-parallax-tilt";
 import { Link } from "react-router-dom";
 import { CardsOptions } from "../../assets/data";
 import { CardContainer, Text } from "./styles";

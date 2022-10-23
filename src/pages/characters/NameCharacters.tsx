@@ -3,14 +3,11 @@ import { Footer } from '../../components/Footer/Footer';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { selectById } from '../../store/modules/characters/charactersSlice';
 import {
-  ContainerCharacter,
   ContainerCharacterId,
-  Container,
   ContainerCharacters,
   ContainerData,
   ContainerImage,
   ContainerTitle,
-  Text,
   ContainerInfo,
 } from './styles';
 import { useAppSelector } from '../../store/modules/types-hooks';

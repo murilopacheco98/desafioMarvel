@@ -1,5 +1,5 @@
 import React from 'react'
-import { CgMail } from "react-icons/cg";
+// import { CgMail } from "react-icons/cg";
 import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { Container, Links, Name, Person, PersonsContainer } from "./styles";
 
