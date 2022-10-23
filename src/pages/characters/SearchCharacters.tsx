@@ -47,7 +47,7 @@ export const CharactersSearch = () => {
     setCurrentSearch(urlSearch[1]);
     // const urlSearchPage = url[5].split('=');
     setCurrentPage(Number(urlSearchPage[1]));
-    const offset = 0
+    offset = 0
     if (currentSearch !== '') {
       dispatch(getByName({ nameStartsWith: currentSearch, limite, offset }));
     }
@@ -62,8 +62,7 @@ export const CharactersSearch = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (currentPage > 1) {
       // setCurrentPage(Number(page));
-      const url = window.location.href.split('/');
-      const urlSearchPage = url[5].split('=');
+      // const urlSearchPage = url[5].split('=');
       setCurrentPage(Number(urlSearchPage[1]));
     }
     setLoading(false);

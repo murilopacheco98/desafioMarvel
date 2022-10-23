@@ -59,8 +59,7 @@ export const Characters = () => {
       offset = 0;
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));
     } else {
-      const url = window.location.href.split('/');
-      const urlSearchPage = url[4].split('=');  
+      // const urlSearchPage = url[4].split('=');  
       setCurrentPage(Number(urlSearchPage[1]));
       dispatch(getAll({ limite, offset }));
     }
