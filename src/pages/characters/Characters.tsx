@@ -44,6 +44,7 @@ export const Characters = () => {
   const urlSearchPage = url[4].split('=');
   
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const offset = currentPage * 10 - 10;
     // console.log("1")  
     if (currentPage > 0){
@@ -53,7 +54,7 @@ export const Characters = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let offset = currentPage * 10 - 10;
     // console.log("2")
     if( inputValue !== '' ) {

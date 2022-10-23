@@ -21,6 +21,7 @@ export const NameCharacters: React.FC = () => {
   // const urlSearch = url[4].split('=');
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const urlSearch = url[4].split('=');
     setId(urlSearch[1]);
     setLoading(false);

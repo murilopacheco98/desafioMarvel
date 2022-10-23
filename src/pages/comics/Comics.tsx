@@ -23,6 +23,7 @@ export const Comics = () => {
 
     const dispatch = useAppDispatch();
     useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
       dispatch(getAll());
       setLoading(false)
   }, []);
