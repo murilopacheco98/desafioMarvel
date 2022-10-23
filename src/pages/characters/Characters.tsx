@@ -44,9 +44,9 @@ export const Characters = () => {
   const urlSearchPage = url[4].split('=');
   
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable react-hooks/exhaustive-deps
     const offset = currentPage * 10 - 10;
-    // console.log("1")  
+    const dispatch = useAppDispatch();
     if (currentPage > 0){
       dispatch(getAll({ limite, offset }));
     }
@@ -54,13 +54,15 @@ export const Characters = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable react-hooks/exhaustive-deps
     let offset = currentPage * 10 - 10;
-    // console.log("2")
+    const dispatch = useAppDispatch();
     if( inputValue !== '' ) {
       offset = 0;
       dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));
     } else {
+      const url = window.location.href.split('/');
+      const urlSearchPage = url[4].split('=');  
       setCurrentPage(Number(urlSearchPage[1]));
       dispatch(getAll({ limite, offset }));
     }
@@ -69,7 +71,6 @@ export const Characters = () => {
   
   let charactersRedux = Object.values(useAppSelector((store) => store.characters.entities));
   charactersRedux = charactersRedux.sort((a: any , b: any) => a.name.localeCompare(b.name))
-  // const charactersRedux = useAppSelector(selectAll);
 
   return (
     <ContainerGeral>

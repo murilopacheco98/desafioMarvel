@@ -25,14 +25,9 @@ export const CharactersSearch = () => {
   const [inputValue, setInputValue] = useState<string>(
     urlSearch ? urlSearch[1] : ''
   );
-  // const [ inputValue ] = useSearchParams();
-  // const query = inputValue.get("search")
-  // const [inputValue2, setInputValue2] = useState<string>(
-  //   `${query}` 
-  // );
   
   const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentSearch, setCurrentSearch] = useState<string>('');
 
   const dispatch =  useAppDispatch();
@@ -52,7 +47,7 @@ export const CharactersSearch = () => {
     setCurrentSearch(urlSearch[1]);
     // const urlSearchPage = url[5].split('=');
     setCurrentPage(Number(urlSearchPage[1]));
-    offset = 0
+    const offset = 0
     if (currentSearch !== '') {
       dispatch(getByName({ nameStartsWith: currentSearch, limite, offset }));
     }
@@ -67,10 +62,11 @@ export const CharactersSearch = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (currentPage > 1) {
       // setCurrentPage(Number(page));
-      // const urlSearchPage = url[5].split('=');
+      const url = window.location.href.split('/');
+      const urlSearchPage = url[5].split('=');
       setCurrentPage(Number(urlSearchPage[1]));
     }
-    // setLoading(false);
+    setLoading(false);
   }, [currentPage]);
 
   charactersRedux = charactersRedux.slice(offset, personagensSelecionados);

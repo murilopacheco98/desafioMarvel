@@ -17,11 +17,12 @@ export const NameCharacters: React.FC = () => {
   const [id, setId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
-  const url = window.location.href.split('/');
+  // const url = window.location.href.split('/');
   // const urlSearch = url[4].split('=');
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    const url = window.location.href.split('/');
     const urlSearch = url[4].split('=');
     setId(urlSearch[1]);
     setLoading(false);

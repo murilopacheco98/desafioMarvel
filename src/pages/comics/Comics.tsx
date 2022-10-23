@@ -21,11 +21,12 @@ export const Comics = () => {
   const [loading, setLoading] = useState(true);
   // const [loadingButton, setLoadingButton] = useState(false);
 
-    const dispatch = useAppDispatch();
-    useEffect(() => {
+    // const dispatch = useAppDispatch();
+  useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-      dispatch(getAll());
-      setLoading(false)
+    const dispatch = useAppDispatch();  
+    dispatch(getAll());
+    setLoading(false)
   }, []);
 
   const comicsRedux = useAppSelector(selectAll);
