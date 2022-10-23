@@ -8,39 +8,7 @@
   </p>
 </h1>
 
-👀 Para entender melhor como foi feito este projeto, assista o vídeo(gravar um vídeo explicando algum dia): link
-
-👉 Site do projeto(colocar se achar um site grátis): link
-
-🖥️ Tela principal:
-- imagem 1 vai aqui
-
-🖥️ Tela de Menu:
-- imagem 2 vai aqui
-
-🖥️ Tela de Personagens:
-- imagem 3 vai aqui
-
-🖥️ Tela de Histórias:
-- imagem 4 vai aqui
-
-🖥️ Tela de Criadores:
-- imagem 5 vai aqui
-
-🖥️ Tela de Quadrinhos:
-- imagem 6 vai aqui
-
-🖥️ Tela de Eventos:
-- imagem 7 vai aqui
-
-🖥️ Tela de Séries:
-- imagem 8 vai aqui
-
-🖥️ Tela de Erro:
-- imagem 9 vai aqui
-
-📱 Telas responsivas:
-- imagem 10 vai aqui
+👉 Link do projeto: [marvelmundo.herokuapp.com](https://marvelmundo.herokuapp.com/)
 
 ✨ TECNOLOGIAS
 
