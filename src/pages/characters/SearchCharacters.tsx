@@ -27,7 +27,7 @@ export const CharactersSearch = () => {
   );
   
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
   const [currentSearch, setCurrentSearch] = useState<string>('');
 
   const dispatch =  useAppDispatch();
@@ -43,9 +43,7 @@ export const CharactersSearch = () => {
   const urlSearchPage = url[5].split('=');
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     setCurrentSearch(urlSearch[1]);
-    // const urlSearchPage = url[5].split('=');
     setCurrentPage(Number(urlSearchPage[1]));
     offset = 0
     if (currentSearch !== '') {
@@ -56,16 +54,12 @@ export const CharactersSearch = () => {
 
   let charactersRedux = useAppSelector(selectAll);
   const length = Math.ceil(charactersRedux.length / 10);
-  // const { page } = useParams();
   
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (currentPage > 1) {
-      // setCurrentPage(Number(page));
-      // const urlSearchPage = url[5].split('=');
       setCurrentPage(Number(urlSearchPage[1]));
     }
-    setLoading(false);
+    // setLoading(false);
   }, [currentPage]);
 
   charactersRedux = charactersRedux.slice(offset, personagensSelecionados);
