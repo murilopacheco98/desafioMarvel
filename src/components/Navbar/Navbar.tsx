@@ -11,11 +11,12 @@ type NavBarProps = {
   setInputValue?: React.Dispatch<React.SetStateAction<string>>;
   handleFunction?: any;
   setSearch?: any;
+  option?: string;
 };
 
 export const Navbar = (props: NavBarProps) => {
   const navigate = useNavigate();
-  const { setSearch, setInputValue, handleFunction, inputValue} = props;
+  const { setSearch, setInputValue, handleFunction, inputValue, option } = props;
   const backToHome = () => {
     navigate('/');
   };
@@ -31,13 +32,13 @@ export const Navbar = (props: NavBarProps) => {
               onChange={(event) => setInputValue(event.target.value)}
               value={inputValue}
               onKeyDown={(e) =>{if (e.key === 'Enter') {
-                    navigate(`/characters/search=${inputValue}/page=1`)
+                    navigate(`/${option}/search=${inputValue}/page=1`)
                     setSearch(inputValue)
                   }
                 }
               }
             />
-            <Link to={`/characters/search=${inputValue}/page=1`}>
+            <Link to={`/${option}/search=${inputValue}/page=1`}>
               <Button onClick={handleFunction}><SearchIcon sx={{ fontSize: 45 }}/></Button>
             </Link>
           </ContainerSearch>
@@ -51,8 +52,8 @@ export const Navbar = (props: NavBarProps) => {
         <Container>
           <Logo src={Marvel} alt="Marvel" onClick={backToHome} />
           <Links>
-            <Link to="/options">
-              <li>Menu</li>
+            <Link to="/options" className='w-11' style={{textDecoration:'none'}}>
+              <h3>Menu</h3>
             </Link>
           </Links>
         </Container>

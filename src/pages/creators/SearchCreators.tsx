@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
 import { Navbar } from '../../components/Navbar/Navbar';
 import {
-  selectAll,
-  getByName,
-} from '../../store/modules/characters/charactersSlice';
-import {
   ContainerCharacter,
   Container,
   PaginationContainer,
@@ -17,9 +13,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../store/modules/types-hooks';
-import { Loading } from '../../components/Loading/Loading';
+import { Creator, getByName, selectAll } from '../../store/modules/creators/creatorsSlice';
+// import { Loading } from '../../components/Loading/Loading';
 
-export const CharactersSearch = () => {
+export const CreatorsSearch = () => {
   const url = window.location.href.split('/');
   const urlSearch = url[4].split('=');
   const [inputValue, setInputValue] = useState<string>(
@@ -27,7 +24,7 @@ export const CharactersSearch = () => {
   );
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
   const [currentSearch, setCurrentSearch] = useState<string>('');
 
   const dispatch = useAppDispatch();
@@ -49,20 +46,20 @@ export const CharactersSearch = () => {
     if (currentSearch !== '') {
       dispatch(getByName({ nameStartsWith: currentSearch, limite, offset }));
     }
-    setLoading(false);
+    // setLoading(false);
   }, [currentSearch]);
 
-  let charactersRedux = useAppSelector(selectAll);
-  const length = Math.ceil(charactersRedux.length / 10);
+  let creatorsRedux = useAppSelector(selectAll);
+  const length = Math.ceil(creatorsRedux.length / 10);
 
   useEffect(() => {
     if (currentPage > 1) {
       setCurrentPage(Number(urlSearchPage[1]));
     }
-    setLoading(false);
+    // setLoading(false);
   }, [currentPage]);
 
-  charactersRedux = charactersRedux.slice(offset, personagensSelecionados);
+  creatorsRedux = creatorsRedux.slice(offset, personagensSelecionados);
 
   return (
     <>
@@ -72,27 +69,25 @@ export const CharactersSearch = () => {
         handleFunction={handleFunction}
         inputValue={inputValue}
         setSearch={setCurrentSearch}
+        option='creators'
       />
       <Container>
-        {(() => {
-          if (loading === true) {
-            return <Loading type="spinningBubbles" color="black" />;
-          }
-          if (charactersRedux.length === 0) {
-            return <h1> Este personagem não foi encontrado. </h1>;
-          }
-          return charactersRedux.map((character: any): any => (
-            <div key={character.id}>
-              <Link to={`/characters/id=${character?.id}`}>
+        {creatorsRedux.length === 0 ? (
+          // <Loading type="spinningBubbles" color="black" />
+          <h1>Este personagem não foi encontrado.</h1>
+        ) : (
+          creatorsRedux.map((creator: Creator): any => (
+            <div key={creator.id}>
+              <Link to={`/comics/id=${creator?.id}`}>
                 <ContainerCharacter
-                  image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  image={`${creator.thumbnail.path}.${creator.thumbnail.extension}`}
                 >
-                  <Text>{character.name}</Text>
+                  <Text>{creator.fullName}</Text>
                 </ContainerCharacter>
               </Link>
             </div>
-          ));
-        })()}
+          ))
+        )}
       </Container>
       {/* eslint-disable react/jsx-props-no-spreading */}
       <PaginationContainer>
@@ -104,7 +99,7 @@ export const CharactersSearch = () => {
           renderItem={(item) => (
             <PaginationItem
               component={Link}
-              to={`/characters/search=${currentSearch}${`/page=${item.page}`}`}
+              to={`/comics/search=${currentSearch}${`/page=${item.page}`}`}
               {...item}
             />
           )}

@@ -1,8 +1,5 @@
 // import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pagination, PaginationItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
@@ -38,70 +35,62 @@ export const Characters = () => {
 
   const limite = 10;
   const limiteByName = 100;
-  // let offset = currentPage * 10 - 10;
+  let offset = currentPage * 10 - 10;
   const page = inputValue ? 1 : 157;
   const url = window.location.href.split('/');
   const urlSearchPage = url[4].split('=');
-  
+
   useEffect(() => {
-    // eslint-disable react-hooks/exhaustive-deps
-    const offset = currentPage * 10 - 10;
-    if (currentPage > 0){
+    if (currentPage > 0) {
       dispatch(getAll({ limite, offset }));
     }
     setLoading(false);
   }, [currentPage]);
 
   useEffect(() => {
-    // eslint-disable react-hooks/exhaustive-deps
-    let offset = currentPage * 10 - 10;
-    if( inputValue !== '' ) {
+    if (inputValue !== '') {
       offset = 0;
-      dispatch(getByName({nameStartsWith: inputValue, limite: limiteByName, offset }));
+      dispatch(
+        getByName({ nameStartsWith: inputValue, limite: limiteByName, offset })
+      );
     } else {
-      // const urlSearchPage = url[4].split('=');  
       setCurrentPage(Number(urlSearchPage[1]));
-      dispatch(getAll({ limite, offset }));
     }
     setLoading(false);
   }, [inputValue]);
-  
-  let charactersRedux = Object.values(useAppSelector((store) => store.characters.entities));
-  charactersRedux = charactersRedux.sort((a: any , b: any) => a.name.localeCompare(b.name))
+
+  let charactersRedux = Object.values(
+    useAppSelector((store) => store.characters.entities)
+  );
+  charactersRedux = charactersRedux.sort((a: any, b: any) =>
+    a.name.localeCompare(b.name)
+  );
 
   return (
     <ContainerGeral>
-      <Navbar
-        search
-        setInputValue={setInputValue}
-        inputValue={inputValue}
-      />
+      <Navbar search setInputValue={setInputValue} inputValue={inputValue} />
       <Container>
-          { (() => { if (loading === true) {
-            return(
-              <Loading type="spinningBubbles" color="black" />
-            )
-          } 
+        {(() => {
+          if (loading === true) {
+            return <Loading type="spinningBubbles" color="black" />;
+          }
           if (charactersRedux.length === 0) {
-            return (
-              <h1> Este personagem não foi encontrado. </h1>
+            return <h1> Este personagem não foi encontrado. </h1>;
+          }
+          return charactersRedux.map(
+            (character: Character | undefined): any => (
+              <ContainerKey key={character?.id}>
+                <Link to={`/characters/id=${character?.id}`}>
+                  <ContainerCharacter
+                    image={`${character?.thumbnail.path}.${character?.thumbnail.extension}`}
+                  >
+                    <Text>{character?.name}</Text>
+                  </ContainerCharacter>
+                </Link>
+              </ContainerKey>
             )
-          } 
-              return (
-              charactersRedux.map((character: Character | undefined ): any => (
-                <ContainerKey key={character?.id}>
-                  <Link to={`/characters/id=${character?.id}`}>
-                    <ContainerCharacter
-                      image={`${character?.thumbnail.path}.${character?.thumbnail.extension}`}
-                    >
-                      <Text>{character?.name}</Text>
-                    </ContainerCharacter>
-                  </Link>
-                </ContainerKey>
-                )))
-              }
-             )()
-            }
+          );
+        })()}
       </Container>
       {/* eslint-disable react/jsx-props-no-spreading */}
       <PaginationContainer>

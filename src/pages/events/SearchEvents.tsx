@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
 import { Navbar } from '../../components/Navbar/Navbar';
 import {
-  selectAll,
-  getByName,
-} from '../../store/modules/characters/charactersSlice';
-import {
   ContainerCharacter,
   Container,
   PaginationContainer,
@@ -17,9 +13,14 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../store/modules/types-hooks';
+import {
+  Event,
+  getByName,
+  selectAll,
+} from '../../store/modules/events/eventsSlice';
 import { Loading } from '../../components/Loading/Loading';
 
-export const CharactersSearch = () => {
+export const EventsSearch = () => {
   const url = window.location.href.split('/');
   const urlSearch = url[4].split('=');
   const [inputValue, setInputValue] = useState<string>(
@@ -52,8 +53,8 @@ export const CharactersSearch = () => {
     setLoading(false);
   }, [currentSearch]);
 
-  let charactersRedux = useAppSelector(selectAll);
-  const length = Math.ceil(charactersRedux.length / 10);
+  let eventsRedux = useAppSelector(selectAll);
+  const length = Math.ceil(eventsRedux.length / 10);
 
   useEffect(() => {
     if (currentPage > 1) {
@@ -62,7 +63,7 @@ export const CharactersSearch = () => {
     setLoading(false);
   }, [currentPage]);
 
-  charactersRedux = charactersRedux.slice(offset, personagensSelecionados);
+  eventsRedux = eventsRedux.slice(offset, personagensSelecionados);
 
   return (
     <>
@@ -72,22 +73,23 @@ export const CharactersSearch = () => {
         handleFunction={handleFunction}
         inputValue={inputValue}
         setSearch={setCurrentSearch}
+        option="events"
       />
       <Container>
         {(() => {
           if (loading === true) {
             return <Loading type="spinningBubbles" color="black" />;
           }
-          if (charactersRedux.length === 0) {
+          if (eventsRedux.length === 0) {
             return <h1> Este personagem não foi encontrado. </h1>;
           }
-          return charactersRedux.map((character: any): any => (
-            <div key={character.id}>
-              <Link to={`/characters/id=${character?.id}`}>
+          return eventsRedux.map((event: Event): any => (
+            <div key={event.id}>
+              <Link to={`/events/id=${event?.id}`}>
                 <ContainerCharacter
-                  image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  image={`${event.thumbnail.path}.${event.thumbnail.extension}`}
                 >
-                  <Text>{character.name}</Text>
+                  <Text>{event.creators.available}</Text>
                 </ContainerCharacter>
               </Link>
             </div>
@@ -104,7 +106,7 @@ export const CharactersSearch = () => {
           renderItem={(item) => (
             <PaginationItem
               component={Link}
-              to={`/characters/search=${currentSearch}${`/page=${item.page}`}`}
+              to={`/events/search=${currentSearch}${`/page=${item.page}`}`}
               {...item}
             />
           )}

@@ -96,7 +96,6 @@ const charactersSlice = createSlice({
       })
       .addCase(getAll.fulfilled, (state, action) => {
         adapter.setAll(state, action.payload);
-        // state.entities.push(action.payload);
         state.loading = false;
       })
       .addCase(getAll.rejected, (state) => {
@@ -107,7 +106,6 @@ const charactersSlice = createSlice({
       })
       .addCase(getByName.fulfilled, (state, action) => {
         adapter.setAll(state, action.payload);
-        // state.entities.push(action.payload);
         state.loading = false;
       })
       .addCase(getByName.rejected, (state) => {

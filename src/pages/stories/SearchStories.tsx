@@ -1,4 +1,3 @@
-// import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 import React, { useEffect, useState } from 'react';
 import { Pagination, PaginationItem } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -9,106 +8,106 @@ import {
   Container,
   PaginationContainer,
   Text,
-  ContainerKey,
-  ContainerGeral,
 } from './styles';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../store/modules/types-hooks';
+import { getByName, selectAll, Storie } from '../../store/modules/stories/storiesSlice';
 import { Loading } from '../../components/Loading/Loading';
-import {
-  getAll,
-  getByName,
-  Storie,
-} from '../../store/modules/stories/storiesSlice';
 
-export const Stories = () => {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [currentPage, setCurrentPage] = useState<number>(0);
+export const StoriesSearch = () => {
+  const url = window.location.href.split('/');
+  const urlSearch = url[4].split('=');
+  const [inputValue, setInputValue] = useState<string>(
+    urlSearch ? urlSearch[1] : ''
+  );
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentSearch, setCurrentSearch] = useState<string>('');
 
   const dispatch = useAppDispatch();
-  const handleChange = (stories: React.ChangeEvent<unknown>, value: number) => {
+
+  const personagensSelecionados = currentPage * 10;
+  const limite = 100;
+  let offset = currentPage * 10 - 10;
+
+  const handleFunction = (storie: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
-
-  const limite = 10;
-  const limiteByName = 100;
-  let offset = currentPage * 10 - 10;
-  const page = inputValue ? 1 : 5336;
-  const url = window.location.href.split('/');
-  const urlSearchPage = url[4].split('=');
+  const urlSearchPage = url[5].split('=');
 
   useEffect(() => {
-    if (currentPage > 0) {
-      dispatch(getAll({ limite, offset }));
+    setCurrentSearch(urlSearch[1]);
+    setCurrentPage(Number(urlSearchPage[1]));
+    offset = 0;
+    if (currentSearch !== '') {
+      dispatch(getByName({ nameStartsWith: currentSearch, limite, offset }));
+    }
+    setLoading(false);
+  }, [currentSearch]);
+
+  let storiesRedux = useAppSelector(selectAll);
+  const length = Math.ceil(storiesRedux.length / 10);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      setCurrentPage(Number(urlSearchPage[1]));
     }
     setLoading(false);
   }, [currentPage]);
 
-  useEffect(() => {
-    if (inputValue !== '') {
-      offset = 0;
-      dispatch(
-        getByName({ nameStartsWith: inputValue, limite: limiteByName, offset })
-      );
-    } else {
-      setCurrentPage(Number(urlSearchPage[1]));
-    }
-    setLoading(false);
-  }, [inputValue]);
-
-  const storiesRedux = Object.values(
-    useAppSelector((store) => store.stories.entities)
-  );
+  storiesRedux = storiesRedux.slice(offset, personagensSelecionados);
 
   return (
-    <ContainerGeral>
+    <>
       <Navbar
         search
         setInputValue={setInputValue}
+        handleFunction={handleFunction}
         inputValue={inputValue}
-        option="stories"
+        setSearch={setCurrentSearch}
+        option='stories'
       />
       <Container>
-        {(() => {
+      {(() => {
           if (loading === true) {
             return <Loading type="spinningBubbles" color="black" />;
           }
           if (storiesRedux.length === 0) {
             return <h1> Este personagem não foi encontrado. </h1>;
           }
-          return storiesRedux.map((stories: Storie | undefined): any => (
-            <ContainerKey key={stories?.id}>
-              <Link to={`/stories/id=${stories?.id}`}>
+          return storiesRedux.map((storie: Storie): any => (
+            <div key={storie.id}>
+              <Link to={`/stories/id=${storie?.id}`}>
                 <ContainerCharacter
-                  image={`${stories?.thumbnail.path}.${stories?.thumbnail.extension}`}
+                  image={`${storie.thumbnail.path}.${storie.thumbnail.extension}`}
                 >
-                  <Text>{stories?.creators.available}</Text>
+                  <Text>{storie.creators.available}</Text>
                 </ContainerCharacter>
               </Link>
-            </ContainerKey>
+            </div>
           ));
         })()}
       </Container>
       {/* eslint-disable react/jsx-props-no-spreading */}
       <PaginationContainer>
         <Pagination
-          onChange={handleChange}
+          onChange={handleFunction}
           page={currentPage}
-          count={page}
+          count={length}
           variant="outlined"
           renderItem={(item) => (
             <PaginationItem
               component={Link}
-              to={`/stories${`/page=${item.page}`}`}
+              to={`/stories/search=${currentSearch}${`/page=${item.page}`}`}
               {...item}
             />
           )}
         />
       </PaginationContainer>
       <Footer />
-    </ContainerGeral>
+    </>
   );
 };

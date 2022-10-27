@@ -3,33 +3,38 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
-// import { type } from 'os';
 import { marvel } from '../../../services'
 
-// 1 - DEFINIR QUAL O MOLDE DE DADOS QUE ESTARÁ SENDO GRAVADO NA STORE DO REDUX
-// export interface Character {
-//   id: string;
-//   name?: string;
-//   thumbnail?: {
-//     path?: string;
-//     extension: string;
-//   };
-//   description?: string;
-// }
 export interface Event {
   id: string;
-  image: string;
-  name: string;
-  description?: string;
-  series: { available: number };
-  stories: { available: number };
-  events: { available: number };
-  comics: { available: number };
-};
+  digitalId: string;
+  title: string;
+  issueNumber: string;
+  variantDescription: string;
+  description: string;
+  isbn: string;
+  upc: string;
+  diamondCode: string;
+  ean: string;
+  issn: string;
+  format: string;
+  textObjects: { type: string; language: string; text: string; resourceURI: string; };
+  urls: { type: string; url: string };
+  series: { resourceURI: string; name: string; }
+  variants: Array<string>; 
+  collections: Array<string>; 
+  collectedIssues: Array<string>;
+  dates: { 0: { type: number; date: string; }; 1: { type: number; date: string; }; };
+  prices: { type: string; price: number; };
+  thumbnail: {path: string; extension: string; };
+  images: Array<string>;
+  creators: { available: number; collectionURI: string; items: Array<string>; returned: number };
+  caracters: { available: number; collectionURI: string; items: Array<string>; returned: number };
+  stories: { available: number; collectionURI: string; items: Array<string>; returned: number };
+  events: { available: number; collectionURI: string; items: Array<string>; returned: number };
+}
 
-// 2 - CRIAR UM ADAPTER PARA O MOLDE DE DADOS
 const adapter = createEntityAdapter<Event>({
   selectId: (event) => event.id,
 });
@@ -38,14 +43,38 @@ export const { selectAll, selectById } = adapter.getSelectors(
   (state: any) => state.events
 );
 
-export const getAll = createAsyncThunk('getAllEvents', async () => {
-  const response = await marvel.get('/events');
-  
-  const response2 = JSON.parse(response.data)
-  
-  return response2.data.results
+type asyncProps = {
+  limite: number;
+  offset: number;
+};
 
-});
+export const getAll = createAsyncThunk(
+  'getAllEvents',
+  async (props: asyncProps) => {
+    const response = await marvel.get(
+      `/events?limit=${props.limite}&offset=${props.offset}&`
+    );
+    const response2 = JSON.parse(response.data);
+    return response2.data.results;
+  }
+);
+
+type asyncProps2 = {
+  nameStartsWith: string;
+  limite: number;
+  offset: number;
+};
+
+export const getByName = createAsyncThunk(
+  'getEventsByName',
+  async (props: asyncProps2) => {
+    const response = await marvel.get(
+      `/events?titleStartsWith=${props.nameStartsWith}&limit=${props.limite}&offset=${props.offset}&`
+    );
+    const response2 = JSON.parse(response.data);
+    return response2.data.results;
+  }
+);
 
 const eventsSlice = createSlice({
   name: 'events',
@@ -64,14 +93,21 @@ const eventsSlice = createSlice({
       })
       .addCase(getAll.fulfilled, (state, action) => {
         adapter.setAll(state, action.payload);
-        // state.entities.push(action.payload);
         state.loading = false;
       })
       .addCase(getAll.rejected, (state) => {
         state.loading = false
-        console.log('DEU ERRO');
       })
-      
+      .addCase(getByName.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getByName.fulfilled, (state, action) => {
+        adapter.setAll(state, action.payload);
+        state.loading = false;
+      })
+      .addCase(getByName.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 

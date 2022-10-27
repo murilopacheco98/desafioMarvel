@@ -4,37 +4,77 @@ import {
   createEntityAdapter,
   createSlice,
 } from '@reduxjs/toolkit';
-// import { type } from 'os';
 import { marvel } from '../../../services'
 
-// 1 - DEFINIR QUAL O MOLDE DE DADOS QUE ESTARÁ SENDO GRAVADO NA STORE DO REDUX
-export interface Comics {
+export interface Comic {
   id: string;
-  name?: string;
-  thumbnail?: {
-    path?: string;
-    extension: string;
-  };
-  description?: string;
+  digitalId: string;
+  title: string;
+  issueNumber: string;
+  variantDescription: string;
+  description: string;
+  isbn: string;
+  upc: string;
+  diamondCode: string;
+  ean: string;
+  issn: string;
+  format: string;
+  textObjects: { type: string; language: string; text: string; resourceURI: string; };
+  urls: { type: string; url: string };
+  series: { resourceURI: string; name: string; }
+  variants: Array<string>; 
+  collections: Array<string>; 
+  collectedIssues: Array<string>;
+  dates: { 0: { type: number; date: string; }; 1: { type: number; date: string; }; };
+  prices: { type: string; price: number; };
+  thumbnail: {path: string; extension: string; };
+  images: Array<string>;
+  creators: { available: number; collectionURI: string; items: Array<string>; returned: number };
+  caracters: { available: number; collectionURI: string; items: Array<string>; returned: number };
+  stories: { available: number; collectionURI: string; items: Array<string>; returned: number };
+  events: { available: number; collectionURI: string; items: Array<string>; returned: number };
 }
 
-// 2 - CRIAR UM ADAPTER PARA O MOLDE DE DADOS
-const adapter = createEntityAdapter<Comics>({
-  selectId: (comics) => comics.id,
+const adapter = createEntityAdapter<Comic>({
+  selectId: (comic) => comic.id,
 });
 
 export const { selectAll, selectById } = adapter.getSelectors(
   (state: any) => state.comics
 );
 
-export const getAll = createAsyncThunk('getAllComics', async () => {
-  const response = await marvel.get('/comics');
-  
-  const response2 = JSON.parse(response.data)
-  
-  return response2.data.results
+type asyncProps = {
+  limite: number;
+  offset: number;
+};
 
-});
+export const getAll = createAsyncThunk(
+  'getAllComics',
+  async (props: asyncProps) => {
+    const response = await marvel.get(
+      `/comics?limit=${props.limite}&offset=${props.offset}&orderBy=title&`
+    );
+    const response2 = JSON.parse(response.data);
+    return response2.data.results;
+  }
+);
+
+type asyncProps2 = {
+  nameStartsWith: string;
+  limite: number;
+  offset: number;
+};
+
+export const getByName = createAsyncThunk(
+  'getComicsByName',
+  async (props: asyncProps2) => {
+    const response = await marvel.get(
+      `/comics?titleStartsWith=${props.nameStartsWith}&limit=${props.limite}&offset=${props.offset}&`
+    );
+    const response2 = JSON.parse(response.data);
+    return response2.data.results;
+  }
+);
 
 const comicsSlice = createSlice({
   name: 'comics',
@@ -53,13 +93,21 @@ const comicsSlice = createSlice({
       })
       .addCase(getAll.fulfilled, (state, action) => {
         adapter.setAll(state, action.payload);
-        // state.entities.push(action.payload);
         state.loading = false;
       })
       .addCase(getAll.rejected, (state) => {
         state.loading = false
       })
-      
+      .addCase(getByName.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getByName.fulfilled, (state, action) => {
+        adapter.setAll(state, action.payload);
+        state.loading = false;
+      })
+      .addCase(getByName.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 

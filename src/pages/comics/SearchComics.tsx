@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
 import { Navbar } from '../../components/Navbar/Navbar';
 import {
-  selectAll,
-  getByName,
-} from '../../store/modules/characters/charactersSlice';
-import {
   ContainerCharacter,
   Container,
   PaginationContainer,
@@ -17,9 +13,14 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../store/modules/types-hooks';
+import {
+  Comic,
+  getByName,
+  selectAll,
+} from '../../store/modules/comics/comicsSlice';
 import { Loading } from '../../components/Loading/Loading';
 
-export const CharactersSearch = () => {
+export const ComicsSearch = () => {
   const url = window.location.href.split('/');
   const urlSearch = url[4].split('=');
   const [inputValue, setInputValue] = useState<string>(
@@ -52,8 +53,8 @@ export const CharactersSearch = () => {
     setLoading(false);
   }, [currentSearch]);
 
-  let charactersRedux = useAppSelector(selectAll);
-  const length = Math.ceil(charactersRedux.length / 10);
+  let comicsRedux = useAppSelector(selectAll);
+  const length = Math.ceil(comicsRedux.length / 10);
 
   useEffect(() => {
     if (currentPage > 1) {
@@ -62,7 +63,7 @@ export const CharactersSearch = () => {
     setLoading(false);
   }, [currentPage]);
 
-  charactersRedux = charactersRedux.slice(offset, personagensSelecionados);
+  comicsRedux = comicsRedux.slice(offset, personagensSelecionados);
 
   return (
     <>
@@ -72,27 +73,34 @@ export const CharactersSearch = () => {
         handleFunction={handleFunction}
         inputValue={inputValue}
         setSearch={setCurrentSearch}
+        option='comics'
       />
       <Container>
-        {(() => {
-          if (loading === true) {
-            return <Loading type="spinningBubbles" color="black" />;
-          }
-          if (charactersRedux.length === 0) {
-            return <h1> Este personagem não foi encontrado. </h1>;
-          }
-          return charactersRedux.map((character: any): any => (
-            <div key={character.id}>
-              <Link to={`/characters/id=${character?.id}`}>
+      { (() => { if (loading === true) {
+            return(
+              <Loading type="spinningBubbles" color="black" />
+            )
+          } 
+          if (comicsRedux.length === 0) {
+            return (
+              <h1> Este personagem não foi encontrado. </h1>
+            )
+          } 
+              return (
+          comicsRedux.map((comic: Comic): any => (
+            <div key={comic.id}>
+              <Link to={`/comics/id=${comic?.id}`}>
                 <ContainerCharacter
-                  image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                 >
-                  <Text>{character.name}</Text>
+                  <Text>{comic.title}</Text>
                 </ContainerCharacter>
               </Link>
             </div>
-          ));
-        })()}
+          )))
+        }
+       )()
+      }
       </Container>
       {/* eslint-disable react/jsx-props-no-spreading */}
       <PaginationContainer>
@@ -104,7 +112,7 @@ export const CharactersSearch = () => {
           renderItem={(item) => (
             <PaginationItem
               component={Link}
-              to={`/characters/search=${currentSearch}${`/page=${item.page}`}`}
+              to={`/comics/search=${currentSearch}${`/page=${item.page}`}`}
               {...item}
             />
           )}

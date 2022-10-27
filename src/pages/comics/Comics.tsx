@@ -1,72 +1,109 @@
-import React, { useEffect, useState } from "react";
-import { Footer } from "../../components/Footer/Footer";
-// import { Navbar } from "../../components/Navbar/Navbar";
-import { getAll, selectAll } from '../../store/modules/comics/comicsSlice'
-import { useAppDispatch, useAppSelector } from '../../store/modules/types-hooks';
-
-import { CharacterContainer, Container, InfosContainer, Text } from "./styles";
-
-import { Loading } from '../../components/Loading/Loading'
-
-// type Comic = {
-//   image: string;
-//   title: string;
-//   stories: { available: number };
-//   variants: { length: number };
-//   pageCOUNT: number;
-// };
+// import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
+import React, { useEffect, useState } from 'react';
+import { Pagination, PaginationItem } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Footer } from '../../components/Footer/Footer';
+import { Navbar } from '../../components/Navbar/Navbar';
+import {
+  ContainerCharacter,
+  Container,
+  PaginationContainer,
+  Text,
+  ContainerKey,
+  ContainerGeral,
+} from './styles';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../store/modules/types-hooks';
+import { Loading } from '../../components/Loading/Loading';
+import {
+  Comic,
+  getAll,
+  getByName,
+} from '../../store/modules/comics/comicsSlice';
 
 export const Comics = () => {
-  // const [comicsData, setComicsData] = useState<Comic[]>([]);
-  const [loading, setLoading] = useState(true);
-  // const [loadingButton, setLoadingButton] = useState(false);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
+  const limite = 10;
+  const limiteByName = 100;
+  let offset = currentPage * 10 - 10;
+  const page = inputValue ? 1 : 5336;
+  const url = window.location.href.split('/');
+  const urlSearchPage = url[4].split('=');
+
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    dispatch(getAll());
-    setLoading(false)
-  }, []);
+    if (currentPage > 0) {
+      dispatch(getAll({ limite, offset }));
+    }
+    setLoading(false);
+  }, [currentPage]);
 
-  const comicsRedux = useAppSelector(selectAll);
+  useEffect(() => {
+    if (inputValue !== '') {
+      offset = 0;
+      dispatch(
+        getByName({ nameStartsWith: inputValue, limite: limiteByName, offset })
+      );
+    } else {
+      setCurrentPage(Number(urlSearchPage[1]));
+    }
+    setLoading(false);
+  }, [inputValue]);
+
+  const charactersRedux = Object.values(
+    useAppSelector((store) => store.comics.entities)
+  );
 
   return (
-    <>
-      {/* <Navbar search/> */}
+    <ContainerGeral>
+      <Navbar search setInputValue={setInputValue} inputValue={inputValue} option='comics' />
       <Container>
-        {loading ? (
-          <Loading type="spinningBubbles" color="black" />
-        ) : (
-          comicsRedux.map(( comic: any ): any => (
-            <div key={comic.id}>
-                <CharacterContainer
-                  image={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+        {(() => {
+          if (loading === true) {
+            return <Loading type="spinningBubbles" color="black" />;
+          }
+          if (charactersRedux.length === 0) {
+            return <h1> Este personagem não foi encontrado. </h1>;
+          }
+          return charactersRedux.map((comic: Comic | undefined): any => (
+            <ContainerKey key={comic?.id}>
+              <Link to={`/comics/id=${comic?.id}`}>
+                <ContainerCharacter
+                  image={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}
                 >
-                  <Text>{comic.title}</Text>
-                  <InfosContainer>
-                    <p>
-                      Histórias:{" "}
-                      {comic.stories.available === 0
-                        ? "confidencial"
-                        : comic.stories.available}
-                    </p>
-                    <p>
-                      Variantes:{" "}
-                      {comic.variants.length === 0
-                        ? "confidencial"
-                        : comic.variants.length}
-                    </p>
-                    <p>
-                      Quantidade de Páginas:{" "}
-                      {comic.pageCount === 0 ? "confidencial" : comic.pageCount}
-                    </p>
-                  </InfosContainer>
-                </CharacterContainer>
-            </div>
-          ))
-        )}
+                  <Text>{comic?.title}</Text>
+                </ContainerCharacter>
+              </Link>
+            </ContainerKey>
+          ));
+        })()}
       </Container>
+      {/* eslint-disable react/jsx-props-no-spreading */}
+      <PaginationContainer>
+        <Pagination
+          onChange={handleChange}
+          page={currentPage}
+          count={page}
+          variant="outlined"
+          renderItem={(item) => (
+            <PaginationItem
+              component={Link}
+              to={`/comics${`/page=${item.page}`}`}
+              {...item}
+            />
+          )}
+        />
+      </PaginationContainer>
       <Footer />
-    </>
+    </ContainerGeral>
   );
 };
