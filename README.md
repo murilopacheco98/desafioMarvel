@@ -4,7 +4,7 @@
 
 <h1>
   <p align="center">
-  Projeto Marvel com ReactTs e Redux
+  Projeto Marvel com React - Typescript e Redux
   </p>
 </h1>
 
